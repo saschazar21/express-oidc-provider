@@ -1,0 +1,53 @@
+{
+  "name": "oidc-provider",
+  "version": "1.0.0",
+  "description": "An OIDC provider",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/saschazar21/oidc-provider.git"
+  },
+  "keywords": [
+    "oidc",
+    "oauth2",
+    "oauth",
+    "authentication",
+    "user",
+    "password",
+    "token"
+  ],
+  "author": "Sascha Zarhuber",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/saschazar21/oidc-provider#readme",
+  "private": true,
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "compression": "^1.7.1",
+    "connect-redis": "^3.3.2",
+    "debug": "^3.1.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "fs-extra": "^4.0.2",
+    "morgan": "^1.9.0",
+    "oidc-provider": "^2.7.2",
+    "yargs": "^10.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0"
+  }
+}
