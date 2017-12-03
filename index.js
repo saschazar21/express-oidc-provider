@@ -1,9 +1,9 @@
-const argv = require('yargs').argv;
+const { argv } = require('yargs');
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const config = require('./lib/config');
 const dotenv = require('dotenv');
 const express = require('express');
-const fs = require('fs-extra');
 const info = require('debug')('info');
 const morgan = require('morgan');
 const path = require('path');
@@ -16,13 +16,13 @@ try {
   dotenv.config({
     path: path.resolve(__dirname, './env'),
   });
-} catch(e) {
+} catch (e) {
   info('Parsing ENV files failed!');
   info(e);
 }
-const DEV = process.env.NODE_ENV === 'development';
-const DOMAIN = process.env.DOMAIN || process.env.HOST || 'localhost';
-const PORT = process.env.PORT || 3000;
+const DEV = argv.dev || argv.env === 'dev' || process.env.NODE_ENV === 'development';
+const DOMAIN = argv.h || argv.host || process.env.DOMAIN || process.env.HOST || 'localhost';
+const PORT = argv.p || argv.port || process.env.PORT || 3000;
 
 const app = express();
 app.set('trust proxy', 1);
@@ -31,6 +31,7 @@ app.use(morgan('combined'));
 app.use(compression({ level: 6 }));
 app.use(session({
   cookie: { secure: true },
+  proxy: true,
   resave: false,
   saveUninitialized: true,
   secret: process.env.SESSION_SECRET || 'K1ng_0f_Hop$',
@@ -38,14 +39,14 @@ app.use(session({
   unset: 'destroy',
 }));
 
-const oidc = new Provider(`${DEV ? 'http://' : 'https://'}${DOMAIN}:${PORT}`);
-return oidc.initialize()
-.then(() => {
-  app.use('/', oidc.callback);
-  app.listen(PORT, (err) => {
-    if (err) {
-      throw new Error(`An error occurred: ${err.message || err}`);
-    }
-    return info(`OpenID Connect provider successfully started at ${DOMAIN}:${PORT}`);
+const oidc = new Provider(`${DEV ? 'http://' : 'https://'}${DOMAIN}${DEV ? (`:${PORT}`) : ''}`);
+oidc.initialize(config)
+  .then(() => {
+    app.use('/', oidc.callback);
+    app.listen(PORT, (err) => {
+      if (err) {
+        throw new Error(`An error occurred: ${err.message || err}`);
+      }
+      return info(`OpenID Connect provider successfully started at ${DOMAIN}${DEV ? (`:${PORT}`) : ''}`);
+    });
   });
-});
