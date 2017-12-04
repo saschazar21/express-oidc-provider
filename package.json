@@ -33,6 +33,7 @@
     "node": ">=8.9.0"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "compression": "^1.7.1",
     "connect-redis": "^3.3.2",
@@ -41,6 +42,7 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "fs-extra": "^4.0.2",
+    "mongoose": "^4.13.6",
     "morgan": "^1.9.0",
     "oidc-provider": "^2.7.2",
     "yargs": "^10.0.3"
