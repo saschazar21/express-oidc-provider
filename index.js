@@ -1,25 +1,25 @@
 const { argv } = require('yargs');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const config = require('./lib/config');
-const dotenv = require('dotenv');
 const express = require('express');
 const info = require('debug')('info');
 const morgan = require('morgan');
-const path = require('path');
-const redis = require('./lib/tools/redis');
 const session = require('express-session');
 
 const Provider = require('oidc-provider');
 
 try {
-  dotenv.config({
-    path: path.resolve(__dirname, './env'),
-  });
+  /* eslint-disable global-require */
+  require('dotenv').config();
+  /* eslint-enable global-require */
 } catch (e) {
   info('Parsing ENV files failed!');
   info(e);
 }
+
+const config = require('./lib/config');
+const redis = require('./lib/tools/redis');
+
 const DEV = argv.dev || argv.env === 'dev' || process.env.NODE_ENV === 'development';
 const DOMAIN = argv.h || argv.host || process.env.DOMAIN || process.env.HOST || 'localhost';
 const PORT = argv.p || argv.port || process.env.PORT || 3000;
