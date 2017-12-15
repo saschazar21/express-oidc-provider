@@ -42,9 +42,11 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "fs-extra": "^4.0.2",
+    "got": "^8.0.1",
     "mongoose": "^4.13.6",
     "morgan": "^1.9.0",
     "oidc-provider": "^2.7.2",
+    "redis": "^2.8.0",
     "yargs": "^10.0.3"
   },
   "devDependencies": {
