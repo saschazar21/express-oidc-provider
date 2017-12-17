@@ -1,6 +1,7 @@
 const { argv } = require('yargs');
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const error = require('debug')('error');
 const express = require('express');
 const info = require('debug')('info');
 const morgan = require('morgan');
@@ -17,7 +18,7 @@ try {
   info(e);
 }
 
-const config = require('./lib/config');
+const config = require('./lib/config/config');
 const redis = require('./lib/tools/redis');
 
 const DEV = argv.dev || argv.env === 'dev' || process.env.NODE_ENV === 'development';
@@ -49,4 +50,8 @@ oidc.initialize(config)
       }
       return info(`OpenID Connect provider successfully started at ${DOMAIN}${DEV ? (`:${PORT}`) : ''}`);
     });
+  })
+  .catch((e) => {
+    error(e);
+    console.error(e.message || e);
   });
