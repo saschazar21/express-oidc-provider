@@ -19,7 +19,7 @@ try {
 }
 
 const config = require('./lib/config/config');
-const redis = require('./lib/tools/redis');
+const { store } = require('./lib/tools/redis');
 
 const DEV = argv.dev || argv.env === 'dev' || process.env.NODE_ENV === 'development';
 const DOMAIN = argv.h || argv.host || process.env.DOMAIN || process.env.HOST || 'localhost';
@@ -36,7 +36,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   secret: process.env.SESSION_SECRET || 'K1ng_0f_Hop$',
-  store: redis,
+  store,
   unset: 'destroy',
 }));
 
