@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Bitter');
+
 body {
-  background-color: #c0c0c0;
+  background-color: #efefef;
+  font-family: Bitter, Garamond, serif;
 }

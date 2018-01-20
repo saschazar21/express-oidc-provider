@@ -1,3 +1,44 @@
 {{> header}}
 
+<div class="mdl-layout mdl-js-layout">
+  <header class="mdl-layout__header mdl-layout__header--scroll">
+    {{#if client.name}}<img class="mdl-layout-icon"></img>{{/if}}
+    <div class="mdl-layout__header-row">
+      <span class="mdl-layout__title">Login to {{#if client.name}}{{client.name}}{{else}}OpenID Connect{{/if}}</span>
+      <div class="mdl-layout-spacer"></div>
+    </div>
+  </header>
+
+  <main class="mdl-layout__content">
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--4-offset-desktop mdl-cell--4-col-desktop mdl-cell--3-offset-tablet mdl-cell--6-col-tablet mdl-cell--2-offset-phone mdl-cell--8-col-phone">
+        <form action="/interaction/{{ uuid }}/login" method="post">
+          <div class="mdl-card">
+            <div class="mdl-card__title">
+              {{#if client.name}}
+                {{ client.name }}
+              {{else}}
+                OpenID Connect
+              {{/if}}
+            </div>
+            <div class="mdl-card__supporting-text">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="email" id="email" autofocus>
+                <label class="mdl-textfield__label" for="email" name="email">E-Mail</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="password" id="password">
+                <label class="mdl-textfield__label" for="password" name="password">Password</label>
+              </div>
+            </div>
+            <div class="mdl-card__actions">
+            ...
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+
 {{> footer}}
