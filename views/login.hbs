@@ -11,31 +11,37 @@
 
   <main class="mdl-layout__content">
     <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--4-offset-desktop mdl-cell--4-col-desktop mdl-cell--3-offset-tablet mdl-cell--6-col-tablet mdl-cell--2-offset-phone mdl-cell--8-col-phone">
-        <form action="/interaction/{{ uuid }}/login" method="post">
-          <div class="mdl-card">
-            <div class="mdl-card__title">
+      <div class="mdl-cell mdl-cell--4-offset-desktop mdl-cell--4-col-desktop mdl-cell--1-offset-tablet mdl-cell--6-col-tablet mdl-cell--8-col-phone">
+        <div class="form-wrapper">
+          <form action="/interaction/{{ uuid }}/login" method="post">
+            <h1>
               {{#if client.name}}
                 {{ client.name }}
               {{else}}
                 OpenID Connect
               {{/if}}
+            </h1>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="email" id="email" autofocus>
+              <label class="mdl-textfield__label" for="email" name="email">E-Mail</label>
             </div>
-            <div class="mdl-card__supporting-text">
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="email" id="email" autofocus>
-                <label class="mdl-textfield__label" for="email" name="email">E-Mail</label>
-              </div>
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="password" id="password">
-                <label class="mdl-textfield__label" for="password" name="password">Password</label>
-              </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="password" id="password">
+              <label class="mdl-textfield__label" for="password" name="password">Password</label>
             </div>
-            <div class="mdl-card__actions">
-            ...
+            <div>
+              <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember">
+                <input type="checkbox" id="remember" class="mdl-checkbox__input" checked>
+                <span class="mdl-checkbox__label">Remember me?</span>
+              </label>
             </div>
-          </div>
-        </form>
+            <div class="form--submit">
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </main>
