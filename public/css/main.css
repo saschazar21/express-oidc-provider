@@ -13,12 +13,19 @@ body {
   padding: 1.5em;
 }
 
+.form--checkbox {
+  text-align: left;
+}
+
 .form-wrapper > form {
   text-align: center;
 }
 
+.form-wrapper .form--checkbox,
 .form-wrapper .form--submit {
+  margin: 0 auto;
   margin-top: 1em;
+  max-width: 300px;
 }
 
 @media screen and (min-width: 768px) {

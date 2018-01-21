@@ -21,6 +21,7 @@ try {
 }
 
 const config = require('./lib/config/config');
+const router = require('./lib/router');
 const { store } = require('./lib/tools/redis');
 
 const DEV = argv.dev || argv.env === 'dev' || process.env.NODE_ENV === 'development';
@@ -32,6 +33,7 @@ app.set('trust proxy', 1);
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('combined'));
 app.use(compression({ level: 6 }));
 app.use(session({
@@ -52,15 +54,7 @@ app.locals.url = `${DEV ? 'http://' : 'https://'}${DOMAIN}${DEV ? (`:${PORT}`) :
 const oidc = new Provider(`${DEV ? 'http://' : 'https://'}${DOMAIN}${DEV ? (`:${PORT}`) : ''}`);
 oidc.initialize(config)
   .then(() => {
-    app.get('/interaction/:grantId', async (req, res) => {
-      const details = await oidc.interactionDetails(req);
-      const interaction = details.interaction.reason === 'consent_prompt' || details.interaction.reason === 'client_not_authorized';
-      info(details);
-
-      const view = interaction ? 'interaction' : 'login';
-      return res.render(view, details);
-    });
-
+    app.use('/', router(oidc).oidc);
     app.use('/', oidc.callback);
 
     app.listen(PORT, (err) => {
