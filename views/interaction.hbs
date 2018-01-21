@@ -1,4 +1,42 @@
 {{> header}}
 
+<div class="mdl-layout mdl-js-layout">
+  <header class="mdl-layout__header mdl-layout__header--scroll">
+    {{#if client.name}}<img class="mdl-layout-icon"></img>{{/if}}
+    <div class="mdl-layout__header-row">
+      <span class="mdl-layout__title">Authorize access for {{#if client.name}}{{client.name}}{{else}}OpenID Connect{{/if}}</span>
+      <div class="mdl-layout-spacer"></div>
+    </div>
+  </header>
+
+  <main class="mdl-layout__content">
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--4-offset-desktop mdl-cell--4-col-desktop mdl-cell--1-offset-tablet mdl-cell--6-col-tablet mdl-cell--8-col-phone">
+        <div class="form-wrapper">
+          <form action="/interaction/{{ uuid }}/confirm" method="post">
+            <h1>
+              {{#if client.name}}
+                {{ client.name }}
+              {{else}}
+                OpenID Connect
+              {{/if}}
+            </h1>
+            <p>
+              The application {{#if}}"{{ client.name }}"{{/if}} requests access to your user data. Cancel or allow?
+            </p>
+            <div class="form--submit">
+              <a class="mdl-button mdl-js-button mdl-button--raised" href="{{ returnTo }}">
+                Cancel
+              </a>
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                Allow
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
 
 {{> footer}}
