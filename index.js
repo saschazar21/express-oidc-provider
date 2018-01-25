@@ -51,8 +51,11 @@ hbs.registerPartials(path.resolve(__dirname, 'views/partials'));
 hbs.localsAsTemplateData(app);
 app.locals.url = `${DEV ? 'http://' : 'https://'}${DOMAIN}${DEV ? (`:${PORT}`) : ''}`;
 
-const oidc = new Provider(`${DEV ? 'http://' : 'https://'}${DOMAIN}${DEV ? (`:${PORT}`) : ''}`);
-oidc.initialize(config)
+const oidc = new Provider(`${DEV ? 'http://' : 'https://'}${DOMAIN}${DEV ? (`:${PORT}`) : ''}`, config);
+oidc.initialize({
+  adapter: config.adapter,
+  keystore: config.keystore,
+})
   .then(() => {
     app.use('/', router(oidc).oidc);
     app.use('/', oidc.callback);
