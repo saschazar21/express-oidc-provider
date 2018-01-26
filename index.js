@@ -1,4 +1,3 @@
-const { argv } = require('yargs');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const error = require('debug')('error');
@@ -21,12 +20,11 @@ try {
 }
 
 const config = require('./lib/config/config');
+const domain = require('./lib/tools/domain');
+const { isDev } = require('./lib/tools/validators');
+const passport = require('./lib/auth');
 const router = require('./lib/router');
 const { store } = require('./lib/tools/redis');
-
-const DEV = argv.dev || argv.env === 'dev' || process.env.NODE_ENV === 'development';
-const DOMAIN = argv.h || argv.host || process.env.DOMAIN || process.env.HOST || 'localhost';
-const PORT = argv.p || argv.port || process.env.PORT || 3000;
 
 const app = express();
 app.set('trust proxy', 1);
@@ -42,29 +40,42 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   secret: process.env.SESSION_SECRET || 'K1ng_0f_Hop$',
-  store,
-  unset: 'destroy',
+  // store,
+  // unset: 'destroy',
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/assets', express.static('public'));
 
 hbs.registerPartials(path.resolve(__dirname, 'views/partials'));
 hbs.localsAsTemplateData(app);
-app.locals.url = `${DEV ? 'http://' : 'https://'}${DOMAIN}${DEV ? (`:${PORT}`) : ''}`;
+app.locals.url = `${isDev ? 'http://' : 'https://'}${domain.DOMAIN}${isDev ? (`:${domain.PORT}`) : ''}`;
 
-const oidc = new Provider(`${DEV ? 'http://' : 'https://'}${DOMAIN}${DEV ? (`:${PORT}`) : ''}`, config);
+const oidc = new Provider(`${isDev ? 'http://' : 'https://'}${domain.DOMAIN}${isDev ? (`:${domain.PORT}`) : ''}`, config);
 oidc.initialize({
+  clients: config.clients,
   adapter: config.adapter,
   keystore: config.keystore,
 })
   .then(() => {
-    app.use('/', router(oidc).oidc);
+    const routes = router(oidc);
+    app.use((req, res, next) => {
+      if (req.session) {
+        return next();
+      }
+      return next(new Error('Session is gone!'));
+    });
+
+    app.get('/', (req, res) => res.redirect('/web'));
+    app.use('/web', routes.web);
+    app.use('/', routes.oidc);
     app.use('/', oidc.callback);
 
-    app.listen(PORT, (err) => {
+    app.listen(domain.PORT, (err) => {
       if (err) {
         throw new Error(`An error occurred: ${err.message || err}`);
       }
-      return info(`OpenID Connect provider successfully started at ${DOMAIN}${DEV ? (`:${PORT}`) : ''}`);
+      return info(`OpenID Connect provider successfully started at ${domain.DOMAIN}${isDev ? (`:${domain.PORT}`) : ''}`);
     });
   })
   .catch((e) => {

@@ -13,11 +13,16 @@ body {
   padding: 1.5em;
 }
 
+.form-wrapper__error {
+  border-color: #FE4A49;
+}
+
 .form--checkbox {
   text-align: left;
 }
 
-.form-wrapper > form {
+.form-wrapper > form,
+.form-wrapper__error > div {
   text-align: center;
 }
 
