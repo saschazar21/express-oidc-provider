@@ -35,13 +35,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('combined'));
 app.use(compression({ level: 6 }));
 app.use(session({
-  cookie: { secure: true },
+  cookie: { secure: !isDev },
   proxy: true,
-  resave: false,
+  resave: true,
   saveUninitialized: true,
   secret: process.env.SESSION_SECRET || 'K1ng_0f_Hop$',
-  // store,
-  // unset: 'destroy',
+  store,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -58,12 +57,15 @@ oidc.initialize({
   keystore: config.keystore,
 })
   .then(() => {
+    oidc.app.proxy = true;
     const routes = router(oidc);
     app.use((req, res, next) => {
       if (req.session) {
+        info('Session');
+        info(req.session);
         return next();
       }
-      return next(new Error('Session is gone!'));
+      return res.render('error', { error: new Error('Session is gone!') });
     });
 
     app.get('/', (req, res) => res.redirect('/web'));
