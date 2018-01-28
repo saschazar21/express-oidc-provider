@@ -61,7 +61,7 @@ oidc.initialize({
     const routes = router(oidc);
     app.use((req, res, next) => {
       if (req.session) {
-        info('Session');
+        info('Session WebClient');
         info(req.session);
         return next();
       }
