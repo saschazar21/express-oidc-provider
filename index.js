@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const cookieParser = require('cookie-parser');
 const error = require('debug')('error');
 const express = require('express');
 const hbs = require('hbs');
@@ -44,6 +45,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cookieParser());
 app.use('/assets', express.static('public'));
 
 hbs.registerPartials(path.resolve(__dirname, 'views/partials'));
