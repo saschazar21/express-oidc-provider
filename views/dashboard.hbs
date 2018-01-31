@@ -1,3 +1,43 @@
 {{> header}}
 
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--4-offset-desktop mdl-cell--4-col-desktop mdl-cell--1-offset-tablet mdl-cell--6-col-tablet mdl-cell--8-col-phone">
+    <div class="form-wrapper">
+      <div>
+        {{#if user.picture}}
+        <img src="{{ user.picture }}" alt="Avatar of {{ user.name }}">
+        {{/if}}
+        <h1>
+          {{#if user.preferred_username}}
+          {{ user.preferred_username }}
+          {{else}}
+          {{ user.email }}
+          {{/if}}
+        </h1>
+        <ul class="mdl-list">
+          <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+              {{ user.name }}
+            </span>
+          </li>
+          <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+              {{ user.sub }}
+            </span>
+          </li>
+        </ul>
+        <div class="form--submit">
+          <h3>Currently used resources:</h3>
+          <a class="mdl-badge" data-badge="{{ clients }}" href="/web/clients">
+            Clients
+          </a>
+          <a class="mdl-badge" data-badge="{{ tokens }}" href="/web/tokens">
+            Tokens
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {{> footer}}
