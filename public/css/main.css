@@ -6,6 +6,17 @@ body {
   font-family: Bitter, Garamond, serif;
 }
 
+img {
+  max-width: 100%;
+}
+
+table {
+  display: block;
+  margin-bottom: .5em;
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
 .form-wrapper {
   background-color: #efefef;
   border: 5px solid #009688;
@@ -22,7 +33,7 @@ body {
 }
 
 .form-wrapper > form,
-.form-wrapper__error > div {
+.form-wrapper > div {
   text-align: center;
 }
 

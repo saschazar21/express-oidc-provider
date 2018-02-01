@@ -25,16 +25,22 @@
               {{ user.sub }}
             </span>
           </li>
+          <li class="mdl-list__item">
+            <a class="" href="/web/clients">
+              <span class="mdl-badge" data-badge="{{ clients }}">Clients</span>
+            </a>
+          </li>
+          <li class="mdl-list__item">
+            <a class="" href="/web/tokens">
+              <span class="mdl-badge" data-badge="{{ tokens }}">Tokens</span>
+            </a>
+          </li>
         </ul>
-        <div class="form--submit">
-          <h3>Currently used resources:</h3>
-          <a class="mdl-badge" data-badge="{{ clients }}" href="/web/clients">
-            Clients
-          </a>
-          <a class="mdl-badge" data-badge="{{ tokens }}" href="/web/tokens">
-            Tokens
-          </a>
-        </div>
+      </div>
+      <div class="form--submit">
+        <a class="mdl-button mdl-js-button mdl-button--raised" href="/web/logout">
+          Logout
+        </a>
       </div>
     </div>
   </div>

@@ -1,0 +1,88 @@
+{{> header}}
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--4-offset-desktop mdl-cell--4-col-desktop mdl-cell--1-offset-tablet mdl-cell--6-col-tablet mdl-cell--8-col-phone">
+    <div class="form-wrapper">
+      <div>
+        <h1>
+          Tokens
+        </h1>
+        {{#if tokens}}
+        <h3>Access tokens</h3>
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Client</th>
+              <th class="mdl-data-table__cell--non-numeric">Token</th>
+              <th class="mdl-data-table__cell--non-numeric">Valid until</th>
+            </tr>
+          </thead>
+          <tbody>
+          {{#each tokens}}
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+              {{#if payload.clientId.client_name}}
+              <strong>{{ payload.clientId.client_name }}</strong>
+              {{else}}
+              <strong>{{ payload.clientId._id }}</strong>
+              {{/if}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              {{chop _id 7}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              {{date payload.exp }}
+            </td>
+          </tr>
+          {{/each}}
+          </tbody>
+        </table>
+        {{else}}
+        <p>No active access tokens available.</p>
+        {{/if}}
+
+
+        {{#if refreshTokens}}
+        <h3>Access tokens</h3>
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">Client</tr>
+              <th class="mdl-data-table__cell--non-numeric">Token</tr>
+              <th class="mdl-data-table__cell--non-numeric">Valid until</th>
+            </tr>
+          </thead>
+          <tbody>
+          {{#each refreshTokens}}
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+              {{#if payload.clientId.client_name}}
+              <strong>{{ payload.clientId.client_name }}</strong>
+              {{else}}
+              <strong>{{ payload.clientId._id }}</strong>
+              {{/if}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              {{ _id }}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              {{ payload.exp }}
+            </td>
+          </tr>
+          {{/each}}
+          </tbody>
+        </table>
+        {{else}}
+        <p>No active refresh tokens available.</p>
+        {{/if}}
+      </div>
+      <div class="form--submit">
+        <a class="mdl-button mdl-js-button mdl-button--raised" href="/web/logout">
+          Logout
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{> footer}}
