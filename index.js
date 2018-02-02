@@ -3,7 +3,6 @@ const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const error = require('debug')('error');
 const express = require('express');
-const hbs = require('hbs');
 const info = require('debug')('info');
 const morgan = require('morgan');
 const path = require('path');
@@ -20,9 +19,7 @@ try {
   info(e);
 }
 
-const chop = require('./views/helpers/chop');
 const config = require('./lib/config/config');
-const date = require('./views/helpers/date');
 const domain = require('./lib/tools/domain');
 const { isDev } = require('./lib/tools/validators');
 const passport = require('./lib/auth');
@@ -49,12 +46,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
 app.use('/assets', express.static('public'));
-
-hbs.registerHelper('date', date);
-hbs.registerHelper('chop', chop);
-hbs.registerPartials(path.resolve(__dirname, 'views/partials'));
-hbs.localsAsTemplateData(app);
-app.locals.url = `${isDev ? 'http://' : 'https://'}${domain.DOMAIN}${isDev ? (`:${domain.PORT}`) : ''}`;
 
 const oidc = new Provider(`${isDev ? 'http://' : 'https://'}${domain.DOMAIN}${isDev ? (`:${domain.PORT}`) : ''}`, config);
 oidc.initialize({
