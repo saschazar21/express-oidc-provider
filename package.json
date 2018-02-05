@@ -1,10 +1,10 @@
 {
-  "name": "oidc-provider",
+  "name": "id.sascha.work",
   "version": "1.0.0",
   "description": "An OIDC provider",
   "main": "index.js",
   "scripts": {
-    "dev": "backpack",
+    "dev": "backpack dev",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postmerge": "./bin/keystore.js",
     "start": "node index.js"
@@ -20,7 +20,9 @@
     "authentication",
     "user",
     "password",
-    "token"
+    "token",
+    "sascha",
+    "sascha zarhuber"
   ],
   "author": "Sascha Zarhuber",
   "license": "MIT",
@@ -56,6 +58,7 @@
     "oidc-provider": "^2.7.2",
     "openid-client": "^1.19.3",
     "passport": "^0.4.0",
+    "pavilion": "^2.0.3",
     "prompt-password": "^1.2.0",
     "redis": "^2.8.0",
     "uuid": "^3.1.0",
@@ -69,6 +72,8 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
-    "husky": "^0.14.3"
+    "husky": "^0.14.3",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6"
   }
 }
