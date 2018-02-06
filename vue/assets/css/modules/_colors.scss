@@ -1,0 +1,15 @@
+
+/* RGB */
+$color1: rgba(248, 255, 229, 1);
+$color2: rgba(6, 214, 160, 1);
+$color3: rgba(253, 231, 76, 1);
+$color4: rgba(27, 154, 170, 1);
+$color5: rgba(55, 55, 55, 1);
+
+$primary-color: $color4;
+$heading-color: $color2;
+$body-copy-color: $color5;
+
+$soft-gray: $color1;
+$medium-gray: darken($soft-gray, 30%);
+$hard-gray: darken($medium-gray, 30%);

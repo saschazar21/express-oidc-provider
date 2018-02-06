@@ -6,13 +6,6 @@ module.exports = {
       entry: {
         main: path.resolve(__dirname, './index.js'),
       },
-      node: {
-        child_process: 'mock',
-        console: 'mock',
-        fs: 'mock',
-        net: 'mock',
-        tls: 'mock',
-      },
     });
     return c;
   },

@@ -47,8 +47,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '@@/node_modules/pavilion/scss/pavilion.scss',
-    '@/assets/css/main.scss',
+    '@/assets/css/style.scss',
   ],
   env: {
     baseUrl,
