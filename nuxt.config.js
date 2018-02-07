@@ -1,3 +1,6 @@
+/* eslint-disable global-require */
+const path = require('path');
+
 const { baseUrl } = require('./lib/tools/domain');
 const passport = require('./lib/auth');
 const pkg = require('./package.json');
@@ -41,6 +44,12 @@ module.exports = {
   ** Add axios globally
   */
   build: {
+    postcss: [
+      require('colorguard')(),
+      require('postcss-font-magician')({ foundries: 'bootstrap google' }),
+      require('postcss-image-set-polyfill')(),
+      require('postcss-cssnext')(),
+    ],
     vendor: ['axios'],
   },
   /*
@@ -52,8 +61,11 @@ module.exports = {
   env: {
     baseUrl,
   },
+  router: {
+    base: '/web/',
+  },
   serverMiddleware: [
     passport.isAuthenticated,
   ],
-  srcDir: './vue',
+  srcDir: path.resolve(__dirname, './vue'),
 };
