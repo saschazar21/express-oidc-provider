@@ -1,0 +1,53 @@
+body {
+  background-color: $soft-gray;
+}
+
+.block {
+  width: 100%;
+
+  &--center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  &--full {
+    height: 100%;
+  }
+
+  &--special {
+    background-color: $color1;
+    color: $body-copy-color;
+  }
+}
+
+.card {
+  border: $default-border-width solid $heading-color;
+  box-shadow: 5px 0 10px -2px $color7;
+  text-align: center;
+
+  &--error {
+    border-color: $color5;
+    color: $color5;
+  }
+
+  &__body,
+  &__header {
+    margin-bottom: 2em;
+    padding: 1em;
+  }
+}
+
+.form-group {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: .5em;
+  justify-content: center;
+}
+
+@media screen and (min-width: $phone-landscape-size) {
+  .card {
+    width: 540px;
+  }
+}

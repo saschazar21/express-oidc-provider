@@ -9,3 +9,8 @@
 @import "../../../node_modules/pavilion/scss/pavilion-parts/normalize";
 @import "../../../node_modules/pavilion/scss/pavilion-parts/base";
 @import "../../../node_modules/pavilion/scss/pavilion-parts/typography";
+
+// Customized globals
+@import "./modules/layout";
+@import "./modules/theme";
+@import "./modules/text";

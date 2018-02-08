@@ -62,7 +62,7 @@ module.exports = {
     baseUrl,
   },
   router: {
-    base: '/web/',
+    // base: '/web/',
   },
   serverMiddleware: [
     passport.isAuthenticated,

@@ -1,0 +1,47 @@
+input {
+  border: $default-border-width solid $heading-color;
+  display: block;
+  padding: .25em .5em;
+
+  &--error {
+    border-color: $color5;
+    color: $color5;
+  }
+
+  &--full {
+    width: 100%;
+  }
+}
+
+.button {
+  transition: background-color .2s ease-in;
+  background-color: $heading-color;
+  box-shadow: 3px 0 10px -5px $color7;
+  color: $soft-gray;
+  padding: .5em 2em;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: darken($heading-color, 4%);
+    color: $soft-gray;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  &--block {
+    display: block;
+  }
+
+  &--error {
+    background-color: $primary-color;
+
+    &:hover {
+      background-color: darken($primary-color, 2%);
+    }
+  }
+
+  &--full {
+    display: block;
+    width: 100%;
+  }
+}

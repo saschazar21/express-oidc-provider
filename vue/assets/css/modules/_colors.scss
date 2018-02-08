@@ -1,15 +1,16 @@
 
-/* RGB */
-$color1: rgba(248, 255, 229, 1);
-$color2: rgba(6, 214, 160, 1);
-$color3: rgba(253, 231, 76, 1);
-$color4: rgba(27, 154, 170, 1);
-$color5: rgba(55, 55, 55, 1);
+$color1: rgba(0, 166, 118, 1);
+$color2: rgba(247, 249, 249, 1);
+$color3: rgba(224, 208, 193, 1);
+$color4: rgba(167, 109, 96, 1);
+$color5: rgba(96, 23, 0, 1);
+$color6: #08090A;
+$color7: #A7A2A9;
 
-$primary-color: $color4;
-$heading-color: $color2;
-$body-copy-color: $color5;
+$primary-color: $color5;
+$heading-color: $color1;
+$body-copy-color: $color6;
 
-$soft-gray: $color1;
-$medium-gray: darken($soft-gray, 30%);
-$hard-gray: darken($medium-gray, 30%);
+$soft-gray: $color2;
+$medium-gray: darken($soft-gray, 15%);
+$hard-gray: darken($medium-gray, 15%);
