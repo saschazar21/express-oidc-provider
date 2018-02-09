@@ -62,6 +62,7 @@ oidc.initialize({
 
     app.get('/', (req, res) => res.redirect('/web'));
     app.use('/web', nuxt.render);
+    app.use('/', routes.auth);
     app.use('/', routes.oidc);
     app.use('/', oidc.callback);
 

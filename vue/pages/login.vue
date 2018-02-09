@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="card__footer">
-            <button class="button button--full" type="submit">Log in</button>
+            <button class="button button--full" type="submit">Let's go</button>
         </div>
       </form>
     </div>
