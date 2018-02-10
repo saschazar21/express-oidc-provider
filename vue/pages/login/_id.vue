@@ -26,11 +26,9 @@
 <script>
 
 export default {
-  asyncData ({req}) {
+  asyncData({ params }) {
     return {
-      uuid: req.data.uuid,
-      client: req.data.client.client_name || req.data.client.client_id,
-      logo: req.data.client.logo_uri,
+      uuid: params.id,
     }
   }
 }

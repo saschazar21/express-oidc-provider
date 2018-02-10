@@ -44,8 +44,18 @@ module.exports = {
   ** Add axios globally
   */
   build: {
+    // extend(config, ctx) {
+    //   if (ctx.isClient) {
+    //     config.module.rules.push({
+    //       enforce: 'pre',
+    //       test: /\.(js|vue)$/,
+    //       loader: 'eslint-loader',
+    //       exclude: /(node_modules)/,
+    //     });
+    //   }
+    // },
     postcss: [
-      require('colorguard')(),
+      // require('colorguard')(),
       require('postcss-font-magician')({ foundries: 'bootstrap google' }),
       require('postcss-image-set-polyfill')(),
       require('postcss-cssnext')(),
@@ -62,7 +72,7 @@ module.exports = {
     baseUrl,
   },
   router: {
-    // base: '/web/',
+    base: '/web/',
   },
   serverMiddleware: [
     passport.isAuthenticated,

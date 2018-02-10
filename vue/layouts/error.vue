@@ -14,7 +14,7 @@
       </div>
       <div class="card__footer">
         <a v-if="error.returnTo" :href="error.returnTo">Back</a>
-        <nuxt-link class="button button--full button--error" v-else to="/">Exit</nuxt-link>
+        <a class="button button--full button--error" v-else href="/web">Exit</a>
       </div>
     </div>
   </div>

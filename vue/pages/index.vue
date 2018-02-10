@@ -1,6 +1,6 @@
 <template>
   <div class="block block--full">
-    <nav-bar :user="user"></nav-bar>
+    <nav-bar :user="user" />
     <h1>Hello <span v-if="user.name">{{ user.name }}</span><span v-else>world</span></h1>
   </div>
 </template>

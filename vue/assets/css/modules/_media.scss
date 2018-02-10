@@ -1,0 +1,35 @@
+.avatar,
+.avatar-container {
+  max-height: 150px;
+  max-width: 150px;
+  position: relative;
+}
+
+.avatar-container {
+  height: 64px;
+  overflow: hidden;
+  width: 64px;
+
+  &--small {
+    height: 32px;
+    width: 32px;
+  }
+
+  &--large {
+    height: 150px;
+    width: 150px;
+  }
+
+  &--round {
+    border-radius: $default-border-radius;
+  }
+
+  .avatar {
+    left: 50%;
+    max-height: 100%;
+    max-width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+}
