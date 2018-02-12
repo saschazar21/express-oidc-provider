@@ -1,19 +1,67 @@
 <template>
-  <div class="block block--full">
-    <nav-bar :user="user" />
-    <h1>Hello <span v-if="user.name">{{ user.name }}</span><span v-else>world</span></h1>
+  <div class="card card--center" v-if="$store.state.user && $store.state.user.picture">
+    <div class="card__header card__header--border">
+      <div class="avatar-container avatar-container--round">
+        <img :src="$store.state.user.picture" :alt="'Avatar of ' + $store.state.user.name" class="avatar">
+      </div>
+      <h1>
+        {{ $store.state.user.preferred_username }}
+      </h1>
+      <small>Profile page</small>
+    </div>
+    <div class="card__body">
+      <table class="profile">
+        <tr>
+          <th>Name:</th> 
+          <td>{{ $store.state.user.name }}</td>
+        </tr>
+        <tr>
+          <th>E-mail:</th>
+          <td>{{ $store.state.user.sub }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="card__footer">
+
+    </div>
   </div>
 </template>
 
-<script>
-  import navBar from '~/components/navBar';
+<style lang="scss" scoped>
+  @import '../assets/css/modules/colors';
 
-  export default {
-    asyncData({ req }) {
-      return {
-        user: req.user,
-      }
-    },
-    components: { navBar },
+  small {
+    color: $heading-color;
   }
-</script>
+
+  table {
+    display: inline-block;
+  }
+
+  th {
+    font-weight: bold;
+    padding: .25em;
+  }
+
+  td {
+    text-align: right;
+    padding: .25em;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .avatar-container {
+    margin: 0 auto;
+  }
+
+  .card--center {
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+</style>

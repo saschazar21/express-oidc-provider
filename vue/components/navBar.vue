@@ -1,27 +1,33 @@
 <template>
   <div class="nav">
     <div class="nav__body">
+      <div class="nav__user">
+        <div class="avatar-container avatar-container--small avatar-container--round">
+          <img v-if="$store.state.user && $store.state.user.picture" :src="$store.state.user.picture" :alt="'Avatar of ' + $store.state.user.name" class="avatar">
+        </div>
+        <strong v-if="$store.state.user && $store.state.user.name">{{ $store.state.user.name }}</strong>
+      </div>
       <button class="button nav__menu-button" @click="isOpen = !isOpen">
         <span v-if="isOpen">Close</span>
         <span v-else>Menu</span>
       </button>
-      <div class="avatar-container avatar-container--small avatar-container--round">
-        <img v-if="user && user.picture" :src="user.picture" :alt="'Avatar of ' + user.name" class="avatar">
-      </div>
-      <strong v-if="user && user.name">{{ user.name }}</strong>
     </div>
     <nav class="nav__controls">
-      <nuxt-link class="nav__item" to="tokens" :user="user">Tokens</nuxt-link>
-      <nuxt-link class="nav__item" to="clients" :user="user">Clients</nuxt-link>
+      <nuxt-link class="nav__item" to="/">Dashboard</nuxt-link>
+      <nuxt-link class="nav__item" to="tokens">Tokens</nuxt-link>
+      <nuxt-link class="nav__item" to="clients">Clients</nuxt-link>
+      <a href="/logout" class="nav__item">Logout</a>
     </nav>
-    <a href="/logout" class="button button--error nav__item">Logout</a>
     <div :class="['nav__menu', {'nav__menu-open': isOpen}]">
       <ul class="nav__menu-list">
         <li class="nav__menu-list--item">
-          <nuxt-link class="nav__item" to="tokens" :user="user">Tokens</nuxt-link>
+          <nuxt-link class="nav__item" to="/">Dashboard</nuxt-link>
         </li>
         <li class="nav__menu-list--item">
-          <nuxt-link class="nav__item" to="clients" :user="user">Clients</nuxt-link>
+          <nuxt-link class="nav__item" to="tokens">Tokens</nuxt-link>
+        </li>
+        <li class="nav__menu-list--item">
+          <nuxt-link class="nav__item" to="clients">Clients</nuxt-link>
         </li>
         <li class="nav__menu-list--item">
           <a href="/logout" class="nav__item">Logout</a>
@@ -39,7 +45,6 @@
       }
     },
     name: 'nav-bar',
-    props: ['user'],
   }
 </script>
 
@@ -53,11 +58,14 @@
     height: 42px;
     justify-content: space-between;
     font-size: 1.25rem;
+    padding: 0 1em;
     position: relative;
 
     &__body {
       align-items: center;
       display: flex;
+      justify-content: space-between;
+      width: 100%;
 
       & > *:not(:first-child) {
         margin-left: 1em;
@@ -95,6 +103,15 @@
         color: $soft-gray;
       }
     }
+
+    &__user {
+      align-items: center;
+      display: flex;
+
+      > *:not(:first-child) {
+        margin-left: 1em;
+      }
+    }
   }
 
   @media screen and (min-width: $phone-landscape-size) {
@@ -108,6 +125,10 @@
 
       &__controls {
         display: block;
+      }
+
+      &__item:not(:first-child) {
+        margin-left: 1em;
       }
     }
   }
