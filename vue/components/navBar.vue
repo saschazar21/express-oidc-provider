@@ -1,11 +1,11 @@
 <template>
-  <div class="nav">
+  <div class="nav" v-if="$store.state.user">
     <div class="nav__body">
       <div class="nav__user">
         <div class="avatar-container avatar-container--small avatar-container--round">
-          <img v-if="$store.state.user && $store.state.user.picture" :src="$store.state.user.picture" :alt="'Avatar of ' + $store.state.user.name" class="avatar">
+          <img v-if="$store.state.user.picture" :src="$store.state.user.picture" :alt="'Avatar of ' + $store.state.user.name" class="avatar">
         </div>
-        <strong v-if="$store.state.user && $store.state.user.name">{{ $store.state.user.name }}</strong>
+        <strong v-if="$store.state.user.name">{{ $store.state.user.name }}</strong>
       </div>
       <button class="button nav__menu-button" @click="isOpen = !isOpen">
         <span v-if="isOpen">Close</span>

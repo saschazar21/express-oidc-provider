@@ -10,6 +10,12 @@ const store = () => new Vuex.Store({
       return null;
     },
   },
+  getters: {
+    token: (state) => {
+      const token = state.user ? state.user.access_token : null;
+      return token;
+    },
+  },
   state: {
     user: null,
   },
