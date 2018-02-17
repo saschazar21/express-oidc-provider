@@ -10,6 +10,7 @@
         })
       }
       return redirect('/');
-    }
+    },
+    layout: 'error',
   }
 </script>

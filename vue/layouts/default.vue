@@ -10,5 +10,6 @@
 
   export default {
     components: { navBar },
+    middleware: 'tokenExpired',
   }
 </script>

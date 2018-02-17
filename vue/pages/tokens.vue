@@ -9,25 +9,24 @@
           <token-detail :token="token"></token-detail>
         </li>
       </ol>
-      <h3 v-else>Currently no active tokens available...</h3>
+      <p v-else>Currently no active tokens available...</p>
     </div>
   </div>
 </template>
 
 <script>
-  import axios from 'axios';
   import tokenDetail from '~/components/tokenDetail';
 
   export default {
-    async asyncData ({ store }) {
-      const { data } = await axios.get('/api/tokens', {
+    async asyncData({ app, store }) {
+      const tokens = await app.$axios.$get('/api/tokens', {
         headers: {
           Authorization: `Bearer ${store.getters.token}`,
         },
       });
 
       return {
-        tokens: data
+        tokens: tokens
           // .filter(token => token.payload && token.payload.clientId)
           .map(token => Object({
             ...token,
@@ -43,15 +42,7 @@
   @import '../assets/css/modules/_variables.scss';
 
   li:not(:last-child) {
-    border-bottom: 1px solid $color1;
+    border-bottom: 1px dashed $color1;
     margin-bottom: 1em;
-  }
-
-  .card--center {
-    display: block;
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
   }
 </style>

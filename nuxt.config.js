@@ -6,6 +6,9 @@ const passport = require('./lib/auth');
 const pkg = require('./package.json');
 
 module.exports = {
+  axios: {
+    proxy: true,
+  },
   head: {
     title: 'OpenID Connect | Sascha Zarhuber',
     meta: [
@@ -60,7 +63,6 @@ module.exports = {
       require('postcss-image-set-polyfill')(),
       require('postcss-cssnext')(),
     ],
-    vendor: ['axios'],
   },
   /*
   ** Global CSS
@@ -71,6 +73,9 @@ module.exports = {
   env: {
     baseUrl,
   },
+  modules: [
+    '@nuxtjs/axios',
+  ],
   router: {
     base: '/web/',
   },

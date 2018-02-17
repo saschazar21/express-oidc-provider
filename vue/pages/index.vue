@@ -56,12 +56,4 @@
   .avatar-container {
     margin: 0 auto;
   }
-
-  .card--center {
-    display: block;
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-  }
 </style>

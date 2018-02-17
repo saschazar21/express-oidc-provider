@@ -11,6 +11,10 @@ const store = () => new Vuex.Store({
     },
   },
   getters: {
+    expiry: (state) => {
+      const millis = state.user && state.user.exp ? state.user.exp * 1000 : 0;
+      return millis;
+    },
     token: (state) => {
       const token = state.user ? state.user.access_token : null;
       return token;

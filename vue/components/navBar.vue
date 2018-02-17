@@ -20,13 +20,13 @@
     </nav>
     <div :class="['nav__menu', {'nav__menu-open': isOpen}]">
       <ul class="nav__menu-list">
-        <li class="nav__menu-list--item">
+        <li @click="close" class="nav__menu-list--item">
           <nuxt-link class="nav__item" to="/">Dashboard</nuxt-link>
         </li>
-        <li class="nav__menu-list--item">
+        <li @click="close" class="nav__menu-list--item">
           <nuxt-link class="nav__item" to="tokens">Tokens</nuxt-link>
         </li>
-        <li class="nav__menu-list--item">
+        <li @click="close" class="nav__menu-list--item">
           <nuxt-link class="nav__item" to="clients">Clients</nuxt-link>
         </li>
         <li class="nav__menu-list--item">
@@ -44,6 +44,11 @@
         isOpen: false,
       }
     },
+    methods: {
+      close() {
+        return this.isOpen = false;
+      },
+    },
     name: 'nav-bar',
   }
 </script>
@@ -57,6 +62,7 @@
     display: flex;
     height: 42px;
     justify-content: space-between;
+    margin-bottom: 2em;
     font-size: 1.25rem;
     padding: 0 1em;
     position: relative;
@@ -117,6 +123,7 @@
   @media screen and (min-width: $phone-landscape-size) {
     .nav {
       font-size: 1rem;
+      margin-bottom: 3em;
 
       &__menu-button,
       &__menu {
