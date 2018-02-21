@@ -2,6 +2,7 @@
   <div class="card card--center">
     <div class="card__header">
       <h1>Clients</h1>
+      <nuxt-link to="/clients/new" class="button button--block">Create new</nuxt-link>
     </div>
     <div class="card__body">
       <client-detail v-for="(client, index) in clients" :key="index" :client="client"></client-detail>
@@ -28,7 +29,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/modules/variables';
+@import '../../assets/css/modules/variables';
 
 .card__body > div:not(:last-child) {
   border-bottom: 1px dashed $color1;

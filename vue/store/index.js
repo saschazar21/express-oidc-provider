@@ -21,9 +21,21 @@ const store = () => new Vuex.Store({
     },
   },
   state: {
+    client: null,
     user: null,
   },
   mutations: {
+    clientSet(state, client) {
+      const current = state;
+      current.client = client;
+    },
+    clientUpdate(state, client) {
+      const current = state;
+      current.client = {
+        ...state.client,
+        ...client,
+      };
+    },
     user(state, user) {
       const current = state;
       current.user = user;

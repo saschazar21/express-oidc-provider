@@ -1,5 +1,5 @@
 {
-  "name": "id.sascha.work",
+  "name": "openid.sascha.work",
   "version": "1.0.0",
   "description": "An OIDC provider",
   "main": "index.js",

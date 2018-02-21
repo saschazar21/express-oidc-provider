@@ -14,8 +14,8 @@
     </div>
     <nav class="nav__controls">
       <nuxt-link class="nav__item" to="/">Dashboard</nuxt-link>
-      <nuxt-link class="nav__item" to="tokens">Tokens</nuxt-link>
-      <nuxt-link class="nav__item" to="clients">Clients</nuxt-link>
+      <nuxt-link class="nav__item" to="/tokens">Tokens</nuxt-link>
+      <nuxt-link class="nav__item" to="/clients">Clients</nuxt-link>
       <a href="/logout" class="nav__item">Logout</a>
     </nav>
     <div :class="['nav__menu', {'nav__menu-open': isOpen}]">
@@ -24,10 +24,10 @@
           <nuxt-link class="nav__item" to="/">Dashboard</nuxt-link>
         </li>
         <li @click="close" class="nav__menu-list--item">
-          <nuxt-link class="nav__item" to="tokens">Tokens</nuxt-link>
+          <nuxt-link class="nav__item" to="/tokens">Tokens</nuxt-link>
         </li>
         <li @click="close" class="nav__menu-list--item">
-          <nuxt-link class="nav__item" to="clients">Clients</nuxt-link>
+          <nuxt-link class="nav__item" to="/clients">Clients</nuxt-link>
         </li>
         <li class="nav__menu-list--item">
           <a href="/logout" class="nav__item">Logout</a>

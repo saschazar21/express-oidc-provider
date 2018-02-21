@@ -26,7 +26,7 @@ body {
 .card {
   border: $default-border-width solid $heading-color;
   box-shadow: 5px 0 10px -2px $color7;
-  max-width: 100%;
+  width: 100%;
   text-align: center;
 
   &--center {
