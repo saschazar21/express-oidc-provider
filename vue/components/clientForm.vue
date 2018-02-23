@@ -2,11 +2,11 @@
   <form action="#" method="post">
     <div class="form-group">
       <label for="client-name">Name</label>
-      <input id="client-name" type="text" v-model="clientName" lazy autofocus>
+      <input id="client-name" type="text" v-model.lazy="clientName" autofocus>
     </div>
     <div class="form-group">
       <label for="client-redirect">Redirect URIs <small>(comma separated)</small></label>
-      <input id="client-redirect" type="text" v-model="clientRedirect" lazy>
+      <input id="client-redirect" type="text" v-model.lazy="clientRedirect">
     </div>
   </form>
 </template>
@@ -28,6 +28,7 @@ export default {
       },
       set(value) {
         const uris = value.split(',').map(url => url.trim()).filter(e => e.length > 0);
+        console.log(uris);
         const filtered = uris.filter(e => this.checkUri(e)).length === uris.length;
         return filtered ? this.$store.commit('clientUpdate', { redirect_uris: uris }) : null;
       }
