@@ -13,15 +13,32 @@
     <div class="form-flex">
       <div class="form-group">
         <label for="authorization-code">Authorization Code</label>
-        <input id="authorization-code" type="checkbox" value="authorization_code" v-model.lazy="grantTypes">
+        <input id="authorization-code" type="checkbox" value="authorization_code" v-model="grantTypes">
       </div>
       <div class="form-group">
         <label for="implicit">Implicit</label>
-        <input id="implicit" type="checkbox" value="implicit" v-model.lazy="grantTypes">
+        <input id="implicit" type="checkbox" value="implicit" v-model="grantTypes">
       </div>
       <div class="form-group">
         <label for="refresh-token">Refresh Token</label>
-        <input id="refresh-token" type="checkbox" value="refresh_token" v-model.lazy="grantTypes">
+        <input id="refresh-token" type="checkbox" value="refresh_token" v-model="grantTypes">
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <span>Response Types</span>
+    <div class="form-flex">
+      <div class="form-group">
+        <label for="code">Code</label>
+        <input id="code" type="checkbox" value="code" v-model="responseTypes">
+      </div>
+      <div class="form-group">
+        <label for="token">Token</label>
+        <input id="token" type="checkbox" value="token" v-model="responseTypes">
+      </div>
+      <div class="form-group">
+        <label for="id-token">ID Token</label>
+        <input id="id-token" type="checkbox" value="id_token" v-model="responseTypes">
       </div>
     </div>
   </div>
@@ -53,10 +70,21 @@ export default {
         }
         return filtered ? this.$store.commit('clientUpdate', { redirect_uris: uris }) : null;
       }
-    }
+    },
+    grantTypes: {
+      get() {
+        return this.$store.client ? this.$store.client.grant_types : null;
+      },
+      set(value) {
+        console.log(value);
+      }
+    },
+    responseTypes: {},
   },
-  data: {
-    errors: {},
+  data() {
+    return {
+      errors: {},
+    };
   },
   methods: {
     checkUri(value) {
