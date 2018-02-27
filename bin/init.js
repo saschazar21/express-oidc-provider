@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+const info = require('debug')('info');
+
 try {
   /* eslint-disable global-require */
   require('dotenv').config();
@@ -9,22 +11,11 @@ try {
 }
 
 const Enquirer = require('enquirer');
-const { argv } = require('yargs');
 const password = require('prompt-password');
 
 const uuid = require('../lib/tools/uuid');
-const { client } = require('./partials/client');
 const { user } = require('./partials/user');
-const Client = require('../lib/db/models/clients');
 const User = require('../lib/db/models/users');
-
-const clientOnly = argv.c || argv['client-only'];
-const userOnly = argv.u || argv['user-only'];
-
-if (clientOnly && userOnly) {
-  console.error('You may only reduce user/client creation to EITHER user OR client!\nPlease append EITHER --user-only OR --client-only!\n\nAborting...');
-  process.exit(1);
-}
 
 const userEnquirer = new Enquirer();
 userEnquirer.register('password', password);
@@ -43,24 +34,9 @@ Object.keys(user).forEach((key) => {
   }
 });
 
-const clientEnquirer = new Enquirer();
-const clientQuestions = [];
-Object.keys(client).forEach((key) => {
-  const obj = {
-    name: key,
-    message: client[key],
-  };
-  clientQuestions.push(obj);
+const initialEnquirer = userEnquirer;
 
-  if (obj.name === 'password' || obj.name === 'email') {
-    const copy = { ...obj, name: `${obj.name}_confirm`, message: `(again) ${obj.message}` };
-    clientQuestions.push(copy);
-  }
-});
-
-const initialEnquirer = clientOnly ? clientEnquirer : userEnquirer;
-
-initialEnquirer.ask(clientOnly ? clientQuestions : userQuestions)
+initialEnquirer.ask(userQuestions)
   .then((obj) => {
     const results = obj;
     Object.keys(results).forEach((key) => {
@@ -77,31 +53,7 @@ initialEnquirer.ask(clientOnly ? clientQuestions : userQuestions)
     console.log(results.password);
     return results;
   })
-  .then(results => clientOnly ? new Client(results).save() : new User(results).save())
-  .then(console.log)
-  .then(() => {
-    if (clientOnly || userOnly) {
-      return process.exit(0);
-    }
-    return null;
-  })
-  .then(() => clientEnquirer.ask(clientQuestions))
-  .then((obj) => {
-    const results = obj;
-    Object.keys(results).forEach((key) => {
-      if (!key.endsWith('_confirm')) {
-        return true;
-      }
-      const sanitized = key.replace('_confirm', '');
-      if (results[key] === results[sanitized]) {
-        return false;
-      }
-      throw new Error(`${sanitized} contains different entries for both inputs!`);
-    });
-    return results;
-  })
-  .then(results => new Client(results).save())
-  .then(console.log)
+  .then(results => new User(results).save())
   .then(() => process.exit(0))
   .catch((e) => {
     console.error(e);

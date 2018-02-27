@@ -13,15 +13,15 @@
     <div class="form-flex">
       <div class="form-group">
         <label for="authorization-code">Authorization Code</label>
-        <input id="authorization-code" type="checkbox" value="authorization_code" v-model="grantTypes">
+        <input id="authorization-code" :checked="grantTypeChecked('authorization_code')" type="checkbox" value="authorization_code" v-model="grantTypes">
       </div>
       <div class="form-group">
         <label for="implicit">Implicit</label>
-        <input id="implicit" type="checkbox" value="implicit" v-model="grantTypes">
+        <input id="implicit" :checked="grantTypeChecked('implicit')" type="checkbox" value="implicit" v-model="grantTypes">
       </div>
       <div class="form-group">
         <label for="refresh-token">Refresh Token</label>
-        <input id="refresh-token" type="checkbox" value="refresh_token" v-model="grantTypes">
+        <input id="refresh-token" :checked="grantTypeChecked('refresh_token')" type="checkbox" value="refresh_token" v-model="grantTypes">
       </div>
     </div>
   </div>
@@ -30,15 +30,15 @@
     <div class="form-flex">
       <div class="form-group">
         <label for="code">Code</label>
-        <input id="code" type="checkbox" value="code" v-model="responseTypes">
+        <input id="code" :checked="responseTypeChecked('code')" type="checkbox" value="code" v-model="responseTypes">
       </div>
       <div class="form-group">
         <label for="token">Token</label>
-        <input id="token" type="checkbox" value="token" v-model="responseTypes">
+        <input id="token" :checked="responseTypeChecked('token')" type="checkbox" value="token" v-model="responseTypes">
       </div>
       <div class="form-group">
         <label for="id-token">ID Token</label>
-        <input id="id-token" type="checkbox" value="id_token" v-model="responseTypes">
+        <input id="id-token" :checked="responseTypeChecked('id_token')" type="checkbox" value="id_token" v-model="responseTypes">
       </div>
     </div>
   </div>
@@ -71,27 +71,42 @@ export default {
         return filtered ? this.$store.commit('clientUpdate', { redirect_uris: uris }) : null;
       }
     },
-    grantTypes: {
-      get() {
-        return this.$store.client ? this.$store.client.grant_types : null;
-      },
-      set(value) {
-        console.log(value);
-      }
-    },
-    responseTypes: {},
   },
   data() {
     return {
       errors: {},
+      grantTypes: [],
+      responseTypes: [],
     };
   },
   methods: {
     checkUri(value) {
       return value.startsWith('http') ? /^https\:\/\//i.test(value) : true;
     },
+    grantTypeChecked(type) {
+      if (!this.$store.state.client || !this.$store.state.client.response_types) {
+        return false;
+      }
+      const result = this.$store.state.client.grant_types.indexOf(type) > -1;
+      return result;
+    },
+    responseTypeChecked(type) {
+      if (!this.$store.state.client || !this.$store.state.client.response_types) {
+        return false
+      }
+      const result = this.$store.state.client.response_types.indexOf(type) > -1;
+      return result;
+    },
   },
   name: 'client-form',
+  watch: {
+    grantTypes(types) {
+      return this.$store.commit('clientUpdate', { grant_types: types });
+    },
+    responseTypes(types) {
+      return this.$store.commit('clientUpdate', { response_types: types });
+    },
+  }
 }
 </script>
 
