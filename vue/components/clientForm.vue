@@ -89,9 +89,27 @@ export default {
   name: 'client-form',
   watch: {
     grantTypes(types) {
+      if (types.length === 0 && this.responseTypes.length !== 0) {
+        this.responseTypes = [];
+      }
+      if (types.indexOf('authorization_code') < 0 && this.responseTypes.indexOf('code') > -1) {
+        this.responseTypes.splice(this.responseTypes.indexOf('code'), 1);
+      }
+      if (this.responseTypes.indexOf('code') < 0 && types.indexOf('authorization_code') > -1) {
+        this.responseTypes.push('code');
+      }
       return this.$store.commit('clientUpdate', { grant_types: types });
     },
     responseTypes(types) {
+      if (types.length === 0 && this.grantTypes.length !== 0) {
+        this.grantTypes = [];
+      }
+      if (types.indexOf('code') < 0 && this.grantTypes.indexOf('authorization_code') > -1) {
+        this.grantTypes.splice(this.grantTypes.indexOf('authorization_code'), 1);
+      }
+      if (this.grantTypes.indexOf('authorization_code') < 0 && types.indexOf('code') > -1) {
+        this.grantTypes.push('authorization_code');
+      }
       return this.$store.commit('clientUpdate', { response_types: types });
     },
   },
