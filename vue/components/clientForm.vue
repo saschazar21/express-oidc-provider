@@ -42,6 +42,14 @@
       </div>
     </div>
   </div>
+  <div class="form-group">
+    <ul v-if="hasErrors()">
+      <li v-for="(error, key) in errors" v-if="error" :key="key">
+        {{ error }}
+      </li>
+    </ul>
+    <button class="button button--block" :disabled="hasErrors()" @click="submit()">Create <span v-if="clientName">"{{ clientName }}"</span></button>
+  </div>
 </div>
 </template>
 
@@ -54,6 +62,10 @@ export default {
         return client ? client.client_name : null;
       },
       set(value) {
+        this.errors = {
+          ...this.errors,
+          clientName: null,
+        };
         return this.$store.commit('clientUpdate', { client_name: value });
       },
     },
@@ -70,6 +82,10 @@ export default {
         } else {
           delete this.errors.clientRedirect;
         }
+        this.errors = {
+          ...this.errors,
+          clientRedirect: filtered ? null : 'Please check your redirect URIs - if using http, use https!',
+        };
         return filtered ? this.$store.commit('clientUpdate', { redirect_uris: uris }) : null;
       }
     },
@@ -85,6 +101,12 @@ export default {
     checkUri(value) {
       return value.startsWith('http') ? /^https\:\/\//i.test(value) : true;
     },
+    hasErrors() {
+      return Object.keys(this.errors).filter(error => !!this.errors[error]).length > 0;
+    },
+    submit() {
+      console.log(this.$store.state.client);
+    },
   },
   name: 'client-form',
   watch: {
@@ -92,10 +114,10 @@ export default {
       if (types.length === 0 && this.responseTypes.length !== 0) {
         this.responseTypes = [];
       }
-      if (types.indexOf('authorization_code') < 0 && this.responseTypes.indexOf('code') > -1) {
+      if (Array.isArray(types) && types.indexOf('authorization_code') < 0 && this.responseTypes.indexOf('code') > -1) {
         this.responseTypes.splice(this.responseTypes.indexOf('code'), 1);
       }
-      if (this.responseTypes.indexOf('code') < 0 && types.indexOf('authorization_code') > -1) {
+      if (Array.isArray(types) && this.responseTypes.indexOf('code') < 0 && types.indexOf('authorization_code') > -1) {
         this.responseTypes.push('code');
       }
       return this.$store.commit('clientUpdate', { grant_types: types });
@@ -104,10 +126,10 @@ export default {
       if (types.length === 0 && this.grantTypes.length !== 0) {
         this.grantTypes = [];
       }
-      if (types.indexOf('code') < 0 && this.grantTypes.indexOf('authorization_code') > -1) {
+      if (Array.isArray(types) && types.indexOf('code') < 0 && this.grantTypes.indexOf('authorization_code') > -1) {
         this.grantTypes.splice(this.grantTypes.indexOf('authorization_code'), 1);
       }
-      if (this.grantTypes.indexOf('authorization_code') < 0 && types.indexOf('code') > -1) {
+      if (Array.isArray(types) && this.grantTypes.indexOf('authorization_code') < 0 && types.indexOf('code') > -1) {
         this.grantTypes.push('authorization_code');
       }
       return this.$store.commit('clientUpdate', { response_types: types });
@@ -117,19 +139,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form-group {
-  margin-top: 1em;
-}
-
-.form-flex {
-  display: flex;
-
-  div {
+  @import '../assets/css/modules/variables';
+  ul {
+    color: $primary-color;
     font-size: .75em;
+    list-style-type: none;
+    text-align: left;
+  }
 
-    &:not(:first-child) {
-      margin-left: 1em;
+  .form-group {
+    margin-top: 1em;
+  }
+
+  .form-flex {
+    display: flex;
+
+    div {
+      font-size: .75em;
+
+      &:not(:first-child) {
+        margin-left: 1em;
+      }
     }
   }
-}
 </style>

@@ -21,6 +21,16 @@ input {
   padding: .5em 2em;
   text-transform: uppercase;
 
+  &[disabled] {
+    background-color: $color7;
+    cursor: default;
+
+    &:hover {
+      cursor: inherit;
+      background-color: $color7;
+    }
+  }
+
   &:hover {
     background-color: darken($heading-color, 4%);
     color: $soft-gray;
