@@ -5,7 +5,10 @@
       <nuxt-link to="/clients/new" class="button button--block">Create new</nuxt-link>
     </div>
     <div class="card__body">
-      <client-detail v-for="(client, index) in clients" :key="index" :client="client"></client-detail>
+      <client-detail v-for="(client, index) in clients" :key="index" :client="client" @deleted="deleted(client._id)"></client-detail>
+      <p v-if="clients.length === 0">
+        <span>No clients yet. Go on and create one!</span>
+      </p>
     </div>
   </div>
 </template>
@@ -25,6 +28,11 @@ export default {
     }
   },
   components: { clientDetail },
+  methods: {
+    deleted(id) {
+      return this.clients = this.clients.filter(client => client._id !== id);
+    },
+  },
 }
 </script>
 

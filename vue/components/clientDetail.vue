@@ -29,8 +29,8 @@
       </div>
     </div>
     <div class="client__controls">
-      <button class="button button--block">Update</button>
-      <button class="button button--block button--error">Delete</button>
+      <nuxt-link :to="`/clients/${ client._id }`" class="button button--block">Update</nuxt-link>
+      <button @click="deleteClient()" class="button button--block button--error">Delete</button>
     </div>
   </div>
 </template>
@@ -54,6 +54,14 @@ export default {
     };
   },
   methods: {
+    async deleteClient() {
+      const result = this.$axios.$delete(`/api/clients/${this.client._id}`, {
+        headers: {
+          Authorization: `Bearer ${this.$store.getters.token}`,
+        },
+      });
+      return this.$emit('deleted');
+    },
     async resetClient() {
       const result = await this.prepareAxios(`/api/clients/${this.client._id}/reset`);
       return this.secret = result.client_secret;

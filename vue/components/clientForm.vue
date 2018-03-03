@@ -48,7 +48,7 @@
         {{ error }}
       </li>
     </ul>
-    <button class="button button--block" :disabled="hasErrors()" @click="submit()">Create <span v-if="clientName">"{{ clientName }}"</span></button>
+    <button class="button button--block" :disabled="hasErrors() || !isValid()" @click="submit()">Create <span v-if="clientName">"{{ clientName }}"</span></button>
   </div>
 </div>
 </template>
@@ -104,8 +104,13 @@ export default {
     hasErrors() {
       return Object.keys(this.errors).filter(error => !!this.errors[error]).length > 0;
     },
+    isValid() {
+      return this.$store.state.client && this.responseTypes.length > 0 && this.grantTypes.length > 0 && this.clientRedirect.length > 0 && this.clientName.length > 0;
+    },
     submit() {
-      console.log(this.$store.state.client);
+      if (!this.hasErrors() && this.isValid()) {
+        this.$emit('submit');
+      }
     },
   },
   name: 'client-form',
