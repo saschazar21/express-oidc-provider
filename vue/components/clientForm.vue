@@ -48,7 +48,9 @@
         {{ error }}
       </li>
     </ul>
-    <button class="button button--block" :disabled="hasErrors() || !isValid()" @click="submit()">Create <span v-if="clientName">"{{ clientName }}"</span></button>
+    <button class="button button--block" :disabled="hasErrors() || !isValid()" @click="submit()">
+      {{ button || 'Create' }} <span v-if="clientName">"{{ clientName }}"</span>
+    </button>
   </div>
 </div>
 </template>
@@ -114,6 +116,7 @@ export default {
     },
   },
   name: 'client-form',
+  props: [ 'button' ],
   watch: {
     grantTypes(types) {
       if (types.length === 0 && this.responseTypes.length !== 0) {

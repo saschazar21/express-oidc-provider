@@ -8,9 +8,9 @@
         <div class="client__name">
           <h4 v-if="client && client.client_name">{{ client.client_name }}</h4>
           <span class="label">{{ client._id }}</span>
-          <p v-if="secret">
+          <p v-if="secret || client.client_secret">
             <span class="label">New client secret</span>
-            <span class="content">{{ secret }}</span>
+            <span class="content">{{ secret || client.client_secret }}</span>
           </p>
           <button v-else class="button button--block client__reset" @click="resetClient">Reset secret</button>
           <p>
@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="client__controls">
-      <nuxt-link :to="`/clients/${ client._id }`" class="button button--block">Update</nuxt-link>
+      <button @click="updateClient()" class="button button--block">Update</button>
       <button @click="deleteClient()" class="button button--block button--error">Delete</button>
     </div>
   </div>
@@ -73,6 +73,10 @@ export default {
         },
       });
     },
+    updateClient() {
+      this.$store.commit('clientSet', this.client);
+      return this.$router.push(`/clients/${ this.client._id }`);
+    }
   },
   name: 'client-detail',
   props: [ 'client' ],
