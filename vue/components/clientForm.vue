@@ -96,7 +96,7 @@ export default {
     return {
       errors: {},
       grantTypes: this.$store.state.client ? this.$store.state.client.grant_types : [],
-      responseTypes: this.$store.state.client ? this.$store.state.client.response_types : [],
+      responseTypes: this.$store.state.client ? this.$store.state.client.response_types[0].split(' ') : [],
     };
   },
   methods: {
@@ -140,7 +140,7 @@ export default {
       if (Array.isArray(types) && this.grantTypes.indexOf('authorization_code') < 0 && types.indexOf('code') > -1) {
         this.grantTypes.push('authorization_code');
       }
-      return this.$store.commit('clientUpdate', { response_types: types });
+      return this.$store.commit('clientUpdate', { response_types: [ types.join(' ') ] });
     },
   },
 }

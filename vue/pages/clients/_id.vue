@@ -18,13 +18,13 @@
   import clientForm from '~/components/clientForm';
 
   export default {
-    async asyncData({ app, params, store }) {
+    async asyncData({ app, params, redirect, store }) {
       if (!store.state.client || store.state.client._id !== params.id) {
         const client = await app.$axios.$get(`/api/clients/${params.id}`, {
           headers: {
             Authorization: `Bearer ${store.getters.token}`,
           },
-        }).catch(e => this.error = e.message || e);
+        }).catch(() => redirect('/clients'));
         store.commit('clientSet', client);
       }
 

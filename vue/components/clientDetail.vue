@@ -39,13 +39,13 @@
 export default {
   computed: {
     grantTypes: function () {
-      return this.client.grant_types.join(', ');
+      return this.client.grant_types ? this.client.grant_types.join(', ') : '';
     },
     redirectUris: function () {
-      return this.client.redirect_uris.join(', ');
+      return this.client.redirect_uris ? this.client.redirect_uris.join(', ') : '';
     },
     responseTypes: function () {
-      return this.client.response_types.join(', ');
+      return this.client.response_types ? this.client.response_types.map(entry => `"${entry}"`).join(', ') : '';
     },
   },
   data() {
