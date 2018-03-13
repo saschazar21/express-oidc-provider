@@ -7,7 +7,6 @@ const info = require('debug')('info');
 const morgan = require('morgan');
 const session = require('express-session');
 
-const Provider = require('oidc-provider');
 
 try {
   /* eslint-disable global-require */
@@ -22,6 +21,7 @@ const config = require('./lib/config/config');
 const domain = require('./lib/tools/domain');
 const { isDev } = require('./lib/tools/validators');
 const nuxt = require('./lib/vue');
+const oidc = require('./lib/provider');
 const passport = require('./lib/auth');
 const router = require('./lib/router');
 const { store } = require('./lib/tools/redis');
@@ -44,7 +44,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
 
-const oidc = new Provider(`${isDev ? 'http://' : 'https://'}${domain.DOMAIN}${isDev ? (`:${domain.PORT}`) : ''}`, config);
 oidc.initialize({
   clients: config.clients,
   adapter: config.adapter,
