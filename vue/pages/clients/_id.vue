@@ -19,15 +19,6 @@
 
   export default {
     async asyncData({ app, params, redirect, store }) {
-      if (!store.state.client || store.state.client._id !== params.id) {
-        const client = await app.$axios.$get(`/api/clients/${params.id}`, {
-          headers: {
-            Authorization: `Bearer ${store.getters.token}`,
-          },
-        }).catch(() => redirect('/clients'));
-        store.commit('clientSet', client);
-      }
-
       return {
         client: store.state.client,
       };
@@ -58,5 +49,6 @@
         }
       }
     },
+    middleware: 'fetchClient',
   }
 </script>

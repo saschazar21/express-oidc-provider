@@ -1,7 +1,7 @@
 <template>
-  <div class="card">
+  <div class="card card--center">
     <div class="card__header">
-      <h1>Authorize <span vue-if="client">"{{ client }}"</span></h1>
+      <h1>Authorize <span vue-if="client">"{{ client.client_name }}"</span></h1>
     </div>
     <div class="card__body">
       <p>The application asks for permission to retrieve your user information:</p>
@@ -14,12 +14,12 @@
 
 <script>
 export default {
-  asyncData({ params, req }) {
-    console.log(req.session[params.id]);
+  asyncData({ params, store }) {
     return {
-      details: req.session[params.id],
+      client: store.state.client,
       uuid: params.id,
     };
   },
+  middleware: 'fetchClient',
 }
 </script>
