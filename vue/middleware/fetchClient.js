@@ -3,7 +3,7 @@ export default async function fetchClient({
   route,
   store,
 }) {
-  const clientId = route.params.id || route.query.client_id;
+  const clientId = route.query.client_id || route.params.id;
   if (clientId) {
     try {
       const client = await app.$axios.$get(`/api/clients/${clientId}`, {
