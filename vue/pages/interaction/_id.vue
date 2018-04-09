@@ -8,6 +8,8 @@
       <form :action="`/interaction/${uuid}/confirm`" method="post">
         <input type="hidden" name="account" :value="client._id">
         <input type="hidden" name="scope" :value="scope">
+        <input type="checkbox" name="remember" id="remember">
+        <label for="remember">Remember my choice</label>
         <button class="button button--full" type="submit">Continue</button>
       </form>
       <p>or</p>
