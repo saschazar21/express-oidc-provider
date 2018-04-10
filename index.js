@@ -13,8 +13,8 @@ try {
   require('dotenv').config();
   /* eslint-enable global-require */
 } catch (e) {
-  info('Parsing ENV files failed!');
-  info(e);
+  console.error('Parsing ENV files failed!');
+  console.error(e);
 }
 
 const config = require('./lib/config/config');
