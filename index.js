@@ -66,7 +66,7 @@ oidc.initialize({
     app.use('/', routes.oidc);
     app.use('/', oidc.callback);
 
-    app.listen(domain.PORT, (err) => {
+    app.listen(domain.PORT || 3000, (err) => {
       if (err) {
         throw new Error(`An error occurred: ${err.message || err}`);
       }
