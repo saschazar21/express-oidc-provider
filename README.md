@@ -23,6 +23,7 @@ For a detailed routing documentation, please see [/docs/routes.md](/docs/routes.
 
 ## Roadmap
 Since this project is still in a very early stage, a lot of things are still on the roadmap:
+
 * **Unified design**: Replace the current UI design with a fully-featured one that's easy to extend and enhance
 * **User self-signup**: Graphical user sign-up page, asking for short-lived sign-up codes
 * **Error handling**: Improved error handling by re-routing to customizable error page
@@ -30,6 +31,7 @@ Since this project is still in a very early stage, a lot of things are still on 
 
 ## Credits
 Of course there should be a lot more projects listed, however, to keep it short and simple, the most important ones are the ones below:
+
 * **@panva** for [node-oidc-provider](https://github.com/panva/node-oidc-provider)
 * **@nuxt** for [nuxt.js](https://github.com/nuxt/nuxt.js)
 * **@expressjs** for [express](https://github.com/expressjs/express)
