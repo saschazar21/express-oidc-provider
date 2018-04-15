@@ -42,5 +42,5 @@ Contributors welcome. Because of this project still being very much in alpha sta
 ## License
 MIT
 
-# Version history
+## Version history
 * **v0.1.0** Initial release of the alpha stage
