@@ -1,3 +1,5 @@
+![An overview of registered clients](/docs/clients.png)
+
 # OpenID Connect provider
 This is a very early staged [OpenID Connect](https://openid.net/connect/) provider based on Filip Skokan's [node-oidc-provider](https://github.com/panva/node-oidc-provider). It uses MongoDB and Redis for persistence, Express for the backend, as well as [Nuxt](https://nuxtjs.org/) for the frontend.
 
