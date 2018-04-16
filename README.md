@@ -21,7 +21,7 @@ After installing the project, the OIDC provider may be started using `npm run de
 After that, the OIDC provider is reachable under the given `DOMAIN` and `PORT` (http://localhost:3000 if omitted). Login using the e-mail address and password entered during install step 4.
 
 ### Routes
-For a detailed routing documentation, please see [/docs/routes.md](/docs/routes.md). Supported HTTP methods are listed using the format *[GET, POST]*, necessary scopes for the given route are listed using the format *{scope, other_scope}*.
+For a detailed routing documentation, please see [/docs/routes.md](/docs/routes.md). Necessary scopes for the given route are listed using the format *{scope, other_scope}* following the route declaration.
 
 ## Roadmap
 Since this project is still in a very early stage, a lot of things are still on the roadmap:
