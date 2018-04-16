@@ -1,5 +1,5 @@
 {
-  "name": "openid.sascha.work",
+  "name": "oidc-provider",
   "version": "0.1.0",
   "description": "An OIDC provider",
   "main": "index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/saschazar21/oidc-provider.git"
+    "url": "git+https://github.com/saschazar21/oidc-provider.git"
   },
   "keywords": [
     "oidc",
@@ -27,7 +27,7 @@
   ],
   "author": "Sascha Zarhuber",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/saschazar21/oidc-provider#readme",
+  "homepage": "https://github.com/saschazar21/oidc-provider#readme",
   "private": true,
   "os": [
     "darwin",
